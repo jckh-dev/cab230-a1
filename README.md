@@ -1,3 +1,13 @@
+REFERENCES:
+
+https://www.digitalocean.com/community/tutorials/react-fancy-forms-reactstrap
+
+https://gist.github.com/Thomas-Smyth/006fd507a7295f17a8473451938f9935
+
+https://reactstrap.github.io/components/
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +78,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
