@@ -22,15 +22,6 @@ const NavBar = (props) => {
 
     const toggle = () => setIsOpen(!isOpen);
 
-    const {
-        buttonLabel,
-        className
-    } = props;
-
-    const [modal, setModal] = useState(false);
-
-    const toggle2 = () => setModal(!modal);
-
     return (
         <div>
             <Container className="fluidCont" fluid="true">
