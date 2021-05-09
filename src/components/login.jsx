@@ -5,71 +5,17 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    Container, 
+    // Container, 
     Col, 
     Form,
     FormGroup, 
     Label, 
     Input,
-    FormText, 
-    FormFeedback,
+    // FormText, 
+    // FormFeedback,
 } from 'reactstrap';
 
-
-
-
-
-// constructor(props) {
-//     super(props);
-//     this.state = {
-//         'email': '',
-//         'password': '',
-//         validate: {
-//             emailState: '',
-//         },
-//       }
-//       this.handleChange = this.handleChange.bind(this);
-//   }
-
-
-
-
 const Login = (props) => {
-
-//     this.state = {
-//         'email': '',
-//         'password': '',
-//         validate: {
-//             emailState: '',
-//         },
-//     }
-//     this.handleChange = this.handleChange.bind(this);
-
-// function validateEmail(e) {
-//     const emailRex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-//     const { validate } = this.state
-//     if (emailRex.test(e.target.value)) {
-//         validate.emailState = 'has-success'
-//     } else {
-//         validate.emailState = 'has-danger'
-//     }
-//     this.setState({ validate })
-// }
-
-// handleChange = async (event) => {
-//     const { target } = event;
-//     const value = target.type === 'checkbox' ? target.checked : target.value;
-//     const { name } = target;
-//     await this.setState({
-//         [name]: value,
-//     });
-// }
-
-// function submitForm(e) {
-//     e.preventDefault();
-//     console.log(`Email: ${this.state.email}`)
-// }
-
 
 const [modal, setModal] = useState(false);
 
