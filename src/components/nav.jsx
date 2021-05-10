@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import {
+    BrowserRouter as
+        Router,
+    Switch,
+    Link,
+    Route
+}
+    from "react-router-dom";
+import {
     Collapse,
     Navbar,
     NavbarToggler,
@@ -7,54 +15,45 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Button,
-    Container,
-
+    Button
 } from 'reactstrap';
-
 
 import Login from "./login"
 
+const NavBarLinks = (props) => {
 
-const NavBar = (props) => {
-  
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <div>
-            <Container className="fluidCont" fluid="true">
-                <Container>
-                    <Navbar color="" light expand="md">
-                        <NavbarBrand href="/"><i class="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand>
+        <nav>
+            <Navbar color="" light expand="md">
+                <NavLink tag={Link} to="/"><NavbarBrand><i class="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand></NavLink>
 
-                        <NavbarToggler onClick={toggle} />
+                <NavbarToggler onClick={toggle} />
 
-                        <Collapse isOpen={isOpen} navbar>
-                            <Nav className="ml-auto" navbar >
-                                <NavItem>
-                                    <NavLink href="#">Rankings</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink disabled href="#">Factors</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="#">Register</NavLink>
-                                </NavItem>
-                                
-                            </Nav>
+                <Collapse isOpen={isOpen} navbar>
+                    <Nav className="ml-auto" navbar >
+                        <NavItem>
+                            <NavLink tag={Link} to="/rankings">Rankings</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/factors">Factors</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} to="/register">Register</NavLink>
+                        </NavItem>
+                    </Nav>
 
-                                <Login />
+                    <Login />
 
-                            <Button color="danger" className="ml-4" type="button">LOGOUT</Button>
-                        </Collapse>
+                    <Button color="danger" className="ml-4" type="button">LOGOUT</Button>
 
-                    </Navbar>
-                </Container>
-            </Container>
-        </div>
+                </Collapse>
+            </Navbar>
+        </nav>
     );
 }
 
-export default NavBar;
+export default NavBarLinks;

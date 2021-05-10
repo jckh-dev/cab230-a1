@@ -1,23 +1,47 @@
 import React from "react";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Container } from "reactstrap";
+
 import './style.css';
 
 // Components
 import Header from "./components/header";
-// import Footer from "./components/footer";
-// import Nav from "./components/nav"
+
 
 // Pages
+import Home from "./pages/home";
+import Factors from "./pages/factors";
+import Rankings from "./pages/rankings";
+import Register from "./pages/register"
 
+export default function App() {
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Header />
-      </header>
-    </div>
-  );
-}
+    <Router>
+      <Container className="fluidCont" fluid="true">
+        <Container>
 
-export default App;
+          <div className="App">
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/factors" >
+                <Factors />
+              </Route>
+              <Route path="/rankings">
+                <Rankings />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+            </Switch>
+          </div>
+
+        </Container>
+      </Container>
+    </Router>
+  )
+
+}

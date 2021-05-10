@@ -5,7 +5,6 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    // Container, 
     Col, 
     Form,
     FormGroup, 
@@ -21,9 +20,9 @@ const [modal, setModal] = useState(false);
 
 const toggle = () => setModal(!modal);
 
-// const [email, setEmail] = useState('');
+const [email, setEmail] = useState('');
 
-// const [password, setPassword] = useState('');
+const [password, setPassword] = useState('');
 
 // const { email, password } = this.state;
 
