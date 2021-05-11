@@ -1,12 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Container } from "reactstrap";
 
 import './style.css';
 
 // Components
 import Header from "./components/header";
-
 
 // Pages
 import Home from "./pages/home";

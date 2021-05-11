@@ -1,105 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { Jumbotron, Container } from "reactstrap";
-import RankingsList from "../helpers/fetchrankings";
-import WithListLoading from "../helpers/listloading";
+import { AgGridReact } from "ag-grid-react";
 
-function Rankings() {
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-    const ListLoading = WithListLoading(RankingsList);
-    const [appState, setAppState] = useState({
-        loading: false,
-        repos: null,
-    });
 
-    useEffect(() => {
-        setAppState({ loading: true });
-        const url = `http://131.181.190.87:3000/rankings?country=australia`;
-        fetch(url)
-            .then((res) => res.json())
-            .then((ranklists) => {
-                setAppState({ loading: false, ranklists: ranklists });
-            });
-    }, [setAppState]);
-
-    return (
-        <Container>
-            <Jumbotron>
-                <h1>NATION RANKINGS</h1>
-                <div className='ranklist-container'>
-                    <ListLoading isLoading={appState.loading} ranklists={appState.ranklists} />
-                </div>
-            </Jumbotron>
-        </Container>
-    )
-}
-export default Rankings
+// components
+// import { getRankings } from "../helpers/getRankings";
 
 
 
 
 
 
+export default function Rankings() {
 
+    const [rowData, setRowData] = useState([]);
 
+    const columns = [
+        { headerName: "Rank", field: "rank", sortable: true },
+        { headerName: "Country", field: "country", sortable: true, filter: true },
+        { headerName: "Score", field: "score", sortable: true },
+        { headerName: "Year", field: "year", filter: "agNumberColumnFilter" }
+    ]
 
+        return (
 
+            <Container>
+                <Jumbotron>
 
+                    <h1>NATION RANKINGS</h1>
+                    
+                    <div
+                        className="ag-theme-alpine"
+                        style={{
+                            height: "auto",
+                            width: "auto"
+                        }}>
+                        <AgGridReact
+                            columnDefs={columns}
+                            rowData={rowData}
+                            pagination={true}
+                            paginationPageSize={10}
+                        />
+                    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function fetchCountry() {
-//     const url = `http://131.181.190.87:3000/rankings?country=australia`;
-//     return fetch(url)
-//         .then((res) => res.json())
-//         .then(data => console.log(data)); 
-// }
-
-// function Country(props) {
-//     return (
-//         <div className="Country">
-//             <ul>
-//                 <li>Country: {props.country}</li>
-//                 <li>Rank: {props.rank}</li>
-//                 <li>Score: {props.score}</li>
-//                 <li>Year: {props.year}</li>
-//             </ul>
-//         </div>)
-// }
-
-// export default function Rankings() {
-
-//     const [nation, setCountry] = useState([]);
-//     return (
-//         <Container>
-//             <Jumbotron>
-//                 <h1>Country Rankings</h1>
-//                 <button onClick={() => {
-//                     fetchCountry()
-//                         .then((nation) => {
-//                             setCountry(nation);
-//                         })
-//                 }}>Get Country List</button>
-//                 <Country {...nation} />
-//             </Jumbotron>
-//         </Container>
-//     )
-// }
+                </Jumbotron>
+            </Container>
+        )
+    }

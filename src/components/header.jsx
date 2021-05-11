@@ -10,7 +10,7 @@ const Header = (props) => {
             <NavBarLinks />
 
             <Container>
-                <h4>Header with Search Bar that send result through to filtered rankings? or another results page?</h4>
+                
             </Container>
 
         </header>
