@@ -1,12 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Jumbotron, Container } from "reactstrap";
-import RankingsList from './helpers/fetchrankings';
-import withListLoading from './helpers/withListLoading';
+import RankingsList from "../helpers/fetchrankings";
+import WithListLoading from "../helpers/listloading";
 
 function Rankings() {
+
+    const ListLoading = WithListLoading(RankingsList);
+    const [appState, setAppState] = useState({
+        loading: false,
+        repos: null,
+    });
+
+    useEffect(() => {
+        setAppState({ loading: true });
+        const url = `http://131.181.190.87:3000/rankings?country=australia`;
+        fetch(url)
+            .then((res) => res.json())
+            .then((ranklists) => {
+                setAppState({ loading: false, ranklists: ranklists });
+            });
+    }, [setAppState]);
+
     return (
         <Container>
-            <h1>test</h1>
+            <Jumbotron>
+                <h1>NATION RANKINGS</h1>
+                <div className='ranklist-container'>
+                    <ListLoading isLoading={appState.loading} ranklists={appState.ranklists} />
+                </div>
+            </Jumbotron>
         </Container>
     )
 }
@@ -43,7 +65,6 @@ export default Rankings
 
 
 
-// import { setSourceMapRange } from 'typescript';
 
 // function fetchCountry() {
 //     const url = `http://131.181.190.87:3000/rankings?country=australia`;
