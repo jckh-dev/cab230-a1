@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import {
-    BrowserRouter as
-        Router,
-    Switch,
-    Link,
-    Route
+    Link
 }
     from "react-router-dom";
 import {
+    Container,
     Collapse,
     Navbar,
     NavbarToggler,
@@ -15,7 +12,7 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Button
+    Button, 
 } from 'reactstrap';
 
 import Login from "./login"
@@ -27,16 +24,18 @@ const NavBarLinks = (props) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <nav>
+        <Container>
+
             <Navbar color="" light expand="md">
-                <NavLink tag={Link} to="/"><NavbarBrand><i class="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand></NavLink>
+
+                <NavLink tag={Link} to="/"><NavbarBrand><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand></NavLink>
 
                 <NavbarToggler onClick={toggle} />
 
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar >
                         <NavItem>
-                            <NavLink tag={Link} to="/rankings">Rankings</NavLink>
+                        <NavLink tag={Link} to="/rankings">Rankings</NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} to="/factors">Factors</NavLink>
@@ -52,7 +51,8 @@ const NavBarLinks = (props) => {
 
                 </Collapse>
             </Navbar>
-        </nav>
+
+        </Container>
     );
 }
 

@@ -10,8 +10,6 @@ import {
     FormGroup, 
     Label, 
     Input,
-    // FormText, 
-    // FormFeedback,
 } from 'reactstrap';
 
 const Login = (props) => {
@@ -20,9 +18,9 @@ const [modal, setModal] = useState(false);
 
 const toggle = () => setModal(!modal);
 
-const [email, setEmail] = useState('');
+// const [email, setEmail] = useState('');
 
-const [password, setPassword] = useState('');
+// const [password, setPassword] = useState('');
 
 // const { email, password } = this.state;
 

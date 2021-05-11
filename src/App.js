@@ -18,29 +18,28 @@ export default function App() {
 
   return (
     <Router>
-      <Container className="fluidCont" fluid="true">
-        <Container>
 
-          <div className="App">
-            <Header />
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route path="/factors" >
-                <Factors />
-              </Route>
-              <Route path="/rankings">
-                <Rankings />
-              </Route>
-              <Route path="/register">
-                <Register />
-              </Route>
-            </Switch>
-          </div>
+      <div className="App">
 
-        </Container>
-      </Container>
+        <Header />
+
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/factors" >
+            <Factors />
+          </Route>
+          <Route path="/rankings">
+            <Rankings />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+        </Switch>
+
+      </div>
+
     </Router>
   )
 

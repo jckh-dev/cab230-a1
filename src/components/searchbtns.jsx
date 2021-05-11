@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Dropdown, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import React from 'react';
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 // uncomment the below to implement state handling when ready... Placeholder only until uncommented.
 
@@ -10,9 +10,6 @@ const searchBtn2 = (props) => {
 
     return (
         <UncontrolledDropdown>
-
-            {/* <Dropdown isOpen={dropdownOpen} toggle={toggle}> */}
-
             <DropdownToggle caret>
                 Select Year
        </DropdownToggle>
@@ -24,7 +21,7 @@ const searchBtn2 = (props) => {
                 <DropdownItem>2016</DropdownItem>
                 <DropdownItem>2015</DropdownItem>
             </DropdownMenu>
-            {/* </Dropdown> */}
+            
         </UncontrolledDropdown>
     );
 }

@@ -1,5 +1,10 @@
 import React from 'react';
+import { Container } from 'reactstrap';
 
-export default function rankings() {
-    return <h2>FACTORS PAGE</h2>;
+export default function Factors() {
+    return(
+        <Container>
+            <h2>FACTORS PAGE</h2>;
+        </Container>
+    ) 
 }
