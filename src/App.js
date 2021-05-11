@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
 
 import './style.css';
 
@@ -18,24 +19,27 @@ export default function App() {
     <Router>
 
       <div className="App">
-
-        <Header />
-
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/factors" >
-            <Factors />
-          </Route>
-          <Route path="/rankings">
-            <Rankings />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
-        </Switch>
-
+        <Container>
+          <Row className="justify-content-center">
+            <Header />
+          </Row>
+          <Row className="justify-content-center">
+            <Switch>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route path="/factors" >
+                <Factors />
+              </Route>
+              <Route path="/rankings">
+                <Rankings />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+            </Switch>
+          </Row>
+        </Container>
       </div>
 
     </Router>

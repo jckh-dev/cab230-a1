@@ -2,6 +2,7 @@ import React from 'react';
 
 const RankingsList = (props) => {
     const { ranklists } = props;
+    if (!ranklists || ranklists.length === 0) return <p>No rankings, sorry</p>;
     return (
         <ul>
             {/* need code here to reference the selected country.. */}

@@ -36,3 +36,10 @@ ol, ul {
 .CountrySearch {
   color: black;
 } */
+
+.App {
+  background: linear-gradient(
+          45deg,
+          #1decc5b3,
+          #5b0ed6b3 100%)
+}

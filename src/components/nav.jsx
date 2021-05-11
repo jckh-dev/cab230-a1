@@ -24,7 +24,6 @@ const NavBarLinks = (props) => {
     const toggle = () => setIsOpen(!isOpen);
 
     return (
-        <Container>
 
             <Navbar color="" light expand="md">
 
@@ -51,8 +50,6 @@ const NavBarLinks = (props) => {
 
                 </Collapse>
             </Navbar>
-
-        </Container>
     );
 }
 

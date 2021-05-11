@@ -37,3 +37,32 @@ a lot of difficulties converting the method in the lecture and tutorial work int
 //             .then(ranklist => setRowData(ranklist));
 //     })
 // }
+
+
+
+questions:
+
+General:
+- can i apply styling via bootstrap on index.html?
+- how would one go about getting the bg colour to cover the whole background otherwise in reactstrap?
+- is it camel case for basic functions and uppercase for components or class level?
+- i've had a lot of difficulties with properly importing into files... any tips or things to look out for? The import requests have looked 
+exactly the same and the files have their export statements declared..
+
+LOGIN:
+
+- is it a case of adding a POST request to the submit button and hold the confirmed login state globablly somehow? 
+- any resources to read up on on that one? 
+
+REGISTER:
+- how hard would it be to convert this to a functional based display?
+
+nation.js/api.js/home.jsx:
+- why isn't the tutorial example working? where is it breaking down? 
+
+search.js + rankings:
+- why is the drop down menu white?
+- its loading and selecting different countries but just no text....
+
+Rankings: 
+- make the grid display responsive to the number of queries >>> eg - 5 - 15 - 30 depending on the volume of results? 

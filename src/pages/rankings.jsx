@@ -2,20 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Jumbotron, Container } from "reactstrap";
 import { AgGridReact } from "ag-grid-react";
 
+// ag-grid CSS imports
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-
-// components
-// import { getRankings } from "../helpers/getRankings";
-
-
-
-
-
-
 export default function Rankings() {
-
+    const url = "http://131.181.190.87:3000/rankings"
     const [rowData, setRowData] = useState([]);
 
     const columns = [
@@ -25,6 +17,22 @@ export default function Rankings() {
         { headerName: "Year", field: "year", filter: "agNumberColumnFilter" }
     ]
 
+    useEffect(() => {
+        fetch(url)
+        .then(res => res.json())
+        .then(works => 
+            works.map(book => {
+                return {
+                    rank: book.rank,
+                    country: book.country,
+                    score: book.score,
+                    year: book.year
+                };
+            })
+        )
+        .then(books => setRowData(books));
+    }, []);
+
         return (
 
             <Container>
@@ -32,17 +40,18 @@ export default function Rankings() {
 
                     <h1>NATION RANKINGS</h1>
                     
+                    {/* grid display of nation rankings */}
                     <div
                         className="ag-theme-alpine"
                         style={{
-                            height: "auto",
+                            height: "100vh",
                             width: "auto"
                         }}>
                         <AgGridReact
                             columnDefs={columns}
                             rowData={rowData}
                             pagination={true}
-                            paginationPageSize={10}
+                            paginationPageSize={25}
                         />
                     </div>
 

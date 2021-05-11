@@ -22,8 +22,12 @@ function Search(){
 
     return (
         <div className="CountrySearch">
+
             {/* <h3>Search Countries</h3> */}
+
             <pre>Input Value: "{inputValue}"</pre>
+            
+            {/* Manages country drop down menu behaviour - load in country list an async search via keyboard */}
             <AsyncSelect
                 cacheOptions
                 defaultOptions
@@ -34,7 +38,9 @@ function Search(){
                 onInputChange={handleInputChange}
                 onChange={handleChange}
             />
+
             <pre>Selected Value: {JSON.stringify(selectedValue || {}, null, 2)}</pre>
+
         </div>
     );
 }

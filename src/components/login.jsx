@@ -18,19 +18,22 @@ const [modal, setModal] = useState(false);
 
 const toggle = () => setModal(!modal);
 
-// const [email, setEmail] = useState('');
+// const [email, setEmail] = useState[''];
 
-// const [password, setPassword] = useState('');
+// const [password, setPassword] = useState[''];
 
-// const { email, password } = this.state;
+// const [ email, password ] = this.state;
 
 return (
     <div>
         <Button color="info" className="ml-4" onClick={toggle}>LOGIN</Button>
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>LOGIN WITH YOUR DETAILS</ModalHeader>
+            <ModalHeader toggle={toggle}>SIGN IN WITH YOUR DETAILS</ModalHeader>
             <ModalBody>
-                <h2>Sign In</h2>
+                <Col>
+                <h2>LOGIN</h2>
+                </Col>
+                
                 <Form className="form">
                     <Col>
                         <FormGroup>
@@ -54,7 +57,11 @@ return (
                             />
                         </FormGroup>
                     </Col>
+
+                    <Col>
+                    {/* attach POST request to submit button */}
                     <Button>Submit</Button>
+                    </Col>
                 </Form>
                 </ModalBody>
             <ModalFooter>
