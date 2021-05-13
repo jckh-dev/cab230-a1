@@ -5,7 +5,7 @@ function Search(){
 
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
-
+    // const [countries, setCountry] = useState([]);
     const handleInputChange = value => {
         setValue(value);
     };
@@ -13,11 +13,13 @@ function Search(){
     const handleChange = value => {
         setSelectedValue(value);
     }
-
+    
     const loadOptions = (inputValue) => {
         return fetch(`http://131.181.190.87:3000/countries`)
         .then(res => res.json());
     };
+// may need to convert this into an array of object types instead of an array of string types
+
     // should there be some further altering of the JSON to properly display in the drop down?
 
     return (

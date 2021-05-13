@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, setState } from 'react';
 import {
     Jumbotron,
     Button,
@@ -11,12 +11,13 @@ import Search from "../components/search";
 // components
 import RankingsList from "../helpers/fetchrankings";
 import WithListLoading from "../helpers/listloading";
-import Nation from "../components/nation";
-import { useRankings } from "../helpers/api"
+// import Nation from "../components/nation";
+// import { useRankings } from "../helpers/api"
 
 export default function Home() {
 
     const ListLoading = WithListLoading(RankingsList);
+    const [country, setCountry] = useState(null);
 
 // this code below is linked to the tutorial method that is currently not working.
 
@@ -63,7 +64,12 @@ export default function Home() {
                     <p className="lead">Filter your search via country, year or both</p>
                     <hr className="my-2" />
                     <p>Make your selections here:</p>
+
+                    {/* search bar with async typing filter */}
+                    {/* need to pass 'selectedValue' of Search to setCountry */}
+
                     <Search />
+                    
                     <p>
 
                         {/* Attach event handler here to take the search bar values and create the URL request for new data request */}
@@ -78,7 +84,7 @@ export default function Home() {
                         
                         {/* first way of rendering a dummy list for the home page and it works... unsure if I could extend the code to take any parameters from the search bar results. extend to take the search parameters from the search bar (country and date) */}
                         <ListLoading isLoading={appState.loading} ranklists={appState.ranklists} />
-                        
+                    
                         
                         {/* process from the prac worksheet incorporating api.js and nation.js. does not produce any output */}
 
