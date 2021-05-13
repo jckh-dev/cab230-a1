@@ -4,7 +4,6 @@ import {
 }
     from "react-router-dom";
 import {
-    Container,
     Collapse,
     Navbar,
     NavbarToggler,
@@ -15,7 +14,7 @@ import {
     Button, 
 } from 'reactstrap';
 
-import Login from "./login"
+import Login from "../pages/login"
 
 const NavBarLinks = (props) => {
 
@@ -25,7 +24,7 @@ const NavBarLinks = (props) => {
 
     return (
 
-            <Navbar color="" light expand="md">
+            <Navbar color="" light expand="lg">
 
                 <NavLink tag={Link} to="/"><NavbarBrand><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand></NavLink>
 
@@ -43,7 +42,7 @@ const NavBarLinks = (props) => {
                             <NavLink tag={Link} to="/register">Register</NavLink>
                         </NavItem>
                     </Nav>
-
+                    
                     <Login />
 
                     <Button color="danger" className="ml-4" type="button">LOGOUT</Button>

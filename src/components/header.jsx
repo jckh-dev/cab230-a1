@@ -3,15 +3,11 @@ import { Container } from 'reactstrap';
 
 import NavBarLinks from "./nav"
 
-const Header = (props) => {
+const Header = () => {
     return (
         <header>
 
             <NavBarLinks />
-
-            <Container>
-                
-            </Container>
 
         </header>
     );

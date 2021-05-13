@@ -20,17 +20,17 @@ export default function Rankings() {
     useEffect(() => {
         fetch(url)
         .then(res => res.json())
-        .then(works => 
-            works.map(book => {
+        .then(nations => 
+            nations.map(nation => {
                 return {
-                    rank: book.rank,
-                    country: book.country,
-                    score: book.score,
-                    year: book.year
+                    rank: nation.rank,
+                    country: nation.country,
+                    score: nation.score,
+                    year: nation.year
                 };
             })
         )
-        .then(books => setRowData(books));
+        .then(nations => setRowData(nations));
     }, []);
 
         return (

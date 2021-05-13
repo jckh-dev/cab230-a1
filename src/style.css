@@ -1,6 +1,13 @@
+.gradientbackgr {
+  background: linear-gradient(
+          45deg,
+          #1decc5b3,
+          #5b0ed6b3 100%)
+}
 
 /* CSS RESET */
 html {
+  min-height: 100vh;
   box-sizing: border-box;
   font-size: 16px;
 }
@@ -26,20 +33,33 @@ ol, ul {
 
 /* Gradient Theme Properties */
 
-.gradientbackgr {
+body {
+  min-height: 100%;
   background: linear-gradient(
           45deg,
           #1decc5b3,
-          #5b0ed6b3 100%)
+          #5b0ed6b3 100%);
 }
-/* 
-.CountrySearch {
-  color: black;
-} */
 
 .App {
-  background: linear-gradient(
-          45deg,
-          #1decc5b3,
-          #5b0ed6b3 100%)
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.content_cnt {
+  align-self: stretch;
+}
+
+footer { 
+  margin-top: auto;
+}
+
+.success{
+  color: blue;
+}
+
+.fail {
+  color: red;
 }
