@@ -50,9 +50,10 @@ questions:
 NEW: 
 
 functional
--clear error message after display? or on close of element holding the error message?
+- clear error message after display? or on close of element holding the error message?
 update to error message always one submit behind what's actually happening due to previous message not being cleared (state not being empty) first..
-- 
+- abstracting the components out of the login/register routes
+
 
 Aesthetic Questions:
 - conditional display of elements while keeping the login modal open to display a login error. 
