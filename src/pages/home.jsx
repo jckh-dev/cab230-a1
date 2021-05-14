@@ -3,7 +3,8 @@ import {
     Jumbotron,
     Button,
     Container,
-    Row
+    Row,
+    Form
 } from "reactstrap";
 
 import Search from "../components/search";
@@ -19,36 +20,22 @@ export default function Home() {
     const ListLoading = WithListLoading(RankingsList);
     const [country, setCountry] = useState(null);
 
-// this code below is linked to the tutorial method that is currently not working.
-
-    // const { loading, nations, error } = useRankings();
-
-    // if (loading) {
-    //     return (
-    //         <h1>please wait.... Loading.....</h1>
-    //     )
-    // }
-
-    // if (error) {
-    //     return (
-    //         <h4>Something's wrong:: {error.message}</h4>
-    //     )
-    // }
-
-        const [appState, setAppState] = useState({
+    const [appState, setAppState] = useState({
         loading: false,
         ranklists: null,
-        });
+        });    
+    
+    const url = `http://131.181.190.87:3000/rankings?country=${country}`
 
         useEffect(() => {
-                setAppState({ loading: true });
-                const url = `http://131.181.190.87:3000/rankings?country=australia`;
+                // setAppState({ loading: true });
+                // const url = `http://131.181.190.87:3000/rankings?country=australia`;
                 fetch(url)
                     .then((res) => res.json())
                     .then((ranklists) => {
                         setAppState({ loading: false, ranklists: ranklists });
                     });
-            }, [setAppState]);
+            }, [country]);
             
     return (
 
@@ -67,15 +54,14 @@ export default function Home() {
 
                     {/* search bar with async typing filter */}
                     {/* need to pass 'selectedValue' of Search to setCountry */}
+                    <Form>
 
-                    <Search />
-                    
-                    <p>
-
-                        {/* Attach event handler here to take the search bar values and create the URL request for new data request */}
-
+                        <Search onChange={setCountry}/>
+                            
                         <Button color="primary">Search!</Button>
-                    </p>
+                                            
+                    </Form>
+                   
 
                     <div className='ranklist-container'>
                         

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import AsyncSelect from 'react-select/async';
+
 
 function Search(props){
 
-    const [inputValue, setValue] = useState('');
-    const [selectedValue, setSelectedValue] = useState(null);
     const [countries, setCountries] = useState([]);
     
     
@@ -39,7 +37,5 @@ function Search(props){
 }
 
 export default Search;
-
-// Countries are loading into the list but the text is not showing....
 
 // https://www.cluemediator.com/react-select-async-dropdown-using-search-api
