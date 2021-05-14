@@ -18,10 +18,11 @@ const Login = (props) => {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [regError, setRegError] = useState(false);
+    const [error, setError] = useState(false);
     const [regMsg, setRegMsg] = useState("");
     const [tknExp, setTknExp] = useState("");
     const [modalMsg, setModalMsg] = useState("");
+    const [successMessage, setSuccssMessage] = useState(""); 
     // modal
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -56,21 +57,22 @@ const Login = (props) => {
         })
             .then(res => res.json())
             .then((res) => {
+                if (res.error) {
+                    throw new Error(res.message)
+                }
+
                 localStorage.setItem("token", res.token)
                 setTknExp(res.expires_in);
-                // setRegError(res.error);
                 setRegMsg(res.message);
+
+                setSuccssMessage("Success! Modal will automatically close in 3 seconds.")
+                setTimeout(function(){ toggle(); }, 3000);
                 
-                // conditional statement here to manage error msg to display when modal pops up
-                regError ? setModalMsg("Successful") : setModalMsg("Failed");
-                toggle();
                 // setLoading(false);
             })
-            .then()
             .catch((e) => {
-                setRegError(e);
-                console.log(regError);
-                // setLoading(false);
+                console.log(e.message)
+                setError(e.message);
             })
             ;
     }
@@ -80,7 +82,7 @@ const Login = (props) => {
             <Form>
 
                 <Button color="info" className="ml-4" onClick={toggle}>LOGIN</Button>
-                <Modal className={`${regError ? 'fail' : 'success'}`} isOpen={modal} toggle={toggle} autoFocus={false}>
+                <Modal className={`${error ? 'fail' : 'success'}`} isOpen={modal} toggle={toggle} autoFocus={false}>
 
                     <ModalHeader toggle={toggle}>SIGN IN WITH YOUR DETAILS</ModalHeader>
                     <ModalBody>
@@ -117,7 +119,8 @@ const Login = (props) => {
                         <Col>
                             {/* INSERT CONDITIONAL FAILURE MESSAGE HERE.... */}
                             {/* <h4>{regMsg}</h4> */}
-                        </Col>
+                            {error ? <p>{error}</p> : null}
+                            {successMessage ? <p>{successMessage}</p> : null}</Col>
 
                     </ModalBody>
                     <ModalFooter>
@@ -127,10 +130,10 @@ const Login = (props) => {
                 </Modal>
 
             </Form>
-            { console.log(regMsg)}
+            {/* { console.log(regMsg)}
             { console.log(regError)}
             { console.log(token)}
-            { console.log(tknExp)}
+            { console.log(tknExp)} */}
         </div >
     );
 }

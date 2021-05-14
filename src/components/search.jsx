@@ -1,44 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
 
 function Search(){
 
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
-    // const [countries, setCountry] = useState([]);
-    const handleInputChange = value => {
-        setValue(value);
-    };
-
-    const handleChange = value => {
-        setSelectedValue(value);
-    }
+    const [countries, setCountries] = useState([]);
     
-    const loadOptions = (inputValue) => {
-        return fetch(`http://131.181.190.87:3000/countries`)
-        .then(res => res.json());
-    };
-// may need to convert this into an array of object types instead of an array of string types
-
-    // should there be some further altering of the JSON to properly display in the drop down?
+    
+    useEffect(() => {
+        fetch(`http://131.181.190.87:3000/countries`)
+          .then((res) => res.json())
+          .then((countries) => setCountries(countries));
+      }, []);
 
     return (
+
+        // restart this ---- async select is not the correct usage - will query the server every button press......
         <div className="CountrySearch">
 
-            {/* <h3>Search Countries</h3> */}
-
-            <pre>Input Value: "{inputValue}"</pre>
-            
-            {/* Manages country drop down menu behaviour - load in country list an async search via keyboard */}
-            <AsyncSelect
-                cacheOptions
-                defaultOptions
-                value={selectedValue}
-                getOptionLabel={e => e.title}
-                getOptionValue={e => e.id}
-                loadOptions={loadOptions}
-                onInputChange={handleInputChange}
-                onChange={handleChange}
+    <div>
+      <label htmlFor="users">Choose a user:</label>
+      <select
+        onChange={(event) => {
+          props.onChange(event.target.value);
+        }}
+        name="users"
+        id="users"
+      >
+        <option key="">Please select a user</option>
+        {users.map((user) => (
+          <option key={user}>{user}</option>
+        ))}
+      </select>
+    </div>
             />
 
             <pre>Selected Value: {JSON.stringify(selectedValue || {}, null, 2)}</pre>
