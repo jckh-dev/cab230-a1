@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
 
-function Search(){
+function Search(props){
 
     const [inputValue, setValue] = useState('');
     const [selectedValue, setSelectedValue] = useState(null);
@@ -15,28 +15,24 @@ function Search(){
       }, []);
 
     return (
-
         // restart this ---- async select is not the correct usage - will query the server every button press......
         <div className="CountrySearch">
 
     <div>
-      <label htmlFor="users">Choose a user:</label>
+      <label htmlFor="countries">Choose a Country:</label>
       <select
         onChange={(event) => {
           props.onChange(event.target.value);
         }}
-        name="users"
-        id="users"
+        name="country"
+        id="country"
       >
         <option key="">Please select a user</option>
-        {users.map((user) => (
-          <option key={user}>{user}</option>
+        {countries.map((country) => (
+          <option key={country}>{country}</option>
         ))}
       </select>
     </div>
-            />
-
-            <pre>Selected Value: {JSON.stringify(selectedValue || {}, null, 2)}</pre>
 
         </div>
     );
