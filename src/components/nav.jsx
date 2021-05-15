@@ -11,12 +11,11 @@ import {
     Nav,
     NavItem,
     NavLink,
-    Button, 
 } from 'reactstrap';
 
 import Login from "../pages/login"
 
-const NavBarLinks = (props) => {
+const NavBarLinks = () => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -26,27 +25,25 @@ const NavBarLinks = (props) => {
 
             <Navbar color="" light expand="lg">
 
-                <NavLink tag={Link} to="/"><NavbarBrand><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand></NavLink>
+           <NavbarBrand tag={Link} to="/"><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand>
 
                 <NavbarToggler onClick={toggle} />
 
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar >
                         <NavItem>
-                        <NavLink tag={Link} to="/rankings">Rankings</NavLink>
+                        <NavLink tag={Link} to="/rankings" onClick={toggle}>Rankings</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/factors">Factors</NavLink>
+                        <NavLink tag={Link} to="/factors" onClick={toggle}>Factors</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} to="/register">Register</NavLink>
+                        <NavLink tag={Link} to="/register" onClick={toggle}>Register</NavLink>
                         </NavItem>
+
+                        <Login />
+                        
                     </Nav>
-                    
-                    <Login />
-
-                    <Button color="danger" className="ml-4" type="button">LOGOUT</Button>
-
                 </Collapse>
             </Navbar>
     );

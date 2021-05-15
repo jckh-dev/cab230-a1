@@ -2,6 +2,7 @@
   "name": "cab230-a1",
   "version": "0.1.0",
   "private": true,
+  "main": "src/index.js",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "@popperjs/core": "^2.9.2",

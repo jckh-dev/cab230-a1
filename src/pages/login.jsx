@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useAuthentication } from "../helpers/authdataprovider";
 // import jwt from "jsonwebtoken";
 import {
     Button,
@@ -13,20 +14,21 @@ import {
     Input,
 } from 'reactstrap';
 
-const Login = (props) => {
 
+const Login = () => {
 
+    const auth = useAuthentication();
+
+    const [error, setError] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
     const [regMsg, setRegMsg] = useState("");
     const [tknExp, setTknExp] = useState("");
-    const [modalMsg, setModalMsg] = useState("");
-    const [successMessage, setSuccssMessage] = useState(""); 
+    const [successMessage, setSuccssMessage] = useState("");
+
     // modal
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
-    // const [loading, setLoading] = useState("");
 
     const url = `http://131.181.190.87:3000/user/login`;
 
@@ -38,15 +40,9 @@ const Login = (props) => {
         setEmail(e.target.value);
     }
 
-    let token = localStorage.getItem("token");
-
-    const authHeaders = {
-        accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-    }
-
-    function handleSubmit(e) {
+    // let token = localStorage.getItem("token");
+    const handleLoginSubmit = (e) => {
+        // let token = localStorage.getItem("token");
         //stop default behaviour
         e.preventDefault()
 
@@ -60,16 +56,16 @@ const Login = (props) => {
                 if (res.error) {
                     throw new Error(res.message)
                 }
-
                 localStorage.setItem("token", res.token)
+                console.log(localStorage.getItem("token"))
                 setTknExp(res.expires_in);
                 setRegMsg(res.message);
-
-                setSuccssMessage("Success! Modal will automatically close in 3 seconds.")
-                setTimeout(function(){ toggle(); }, 3000);
-                
-                // setLoading(false);
+                setSuccssMessage("Success! You Are Logged In!");
+                setTimeout(function () { toggle(); }, 1000);
             })
+            // .then(token.onLogin)
+            .then(auth.login)
+            
             .catch((e) => {
                 console.log(e.message)
                 setError(e.message);
@@ -77,64 +73,70 @@ const Login = (props) => {
             ;
     }
 
-    return (
-        <div>
-            <Form>
+    if (!auth.isAuthenticated) {
+        return (
+
+            <div>
 
                 <Button color="info" className="ml-4" onClick={toggle}>LOGIN</Button>
+
+
                 <Modal className={`${error ? 'fail' : 'success'}`} isOpen={modal} toggle={toggle} autoFocus={false}>
 
                     <ModalHeader toggle={toggle}>SIGN IN WITH YOUR DETAILS</ModalHeader>
-                    <ModalBody>
-                        <Col>
-                            <h2>LOGIN</h2>
-                        </Col>
+                    <form onSubmit={handleLoginSubmit}>
+                        <ModalBody>
 
+                            <Col>
+                                <h2>LOGIN</h2>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <Label>Email</Label>
+                                    <Input
+                                        type="email"
+                                        name="email"
+                                        id="exampleEmail"
+                                        placeholder="myemail@email.com"
+                                        onChange={handleEmailChange}
+                                    />
+                                </FormGroup>
+                            </Col>
+                            <Col>
+                                <FormGroup>
+                                    <Label for="examplePassword">Password</Label>
+                                    <Input
+                                        type="password"
+                                        name="password"
+                                        id="examplePassword"
+                                        placeholder="********"
+                                        onChange={handlePWChange}
+                                    />
+                                </FormGroup>
+                            </Col>
 
-                        <Col>
-                            <FormGroup>
-                                <Label>Email</Label>
-                                <Input
-                                    type="email"
-                                    name="email"
-                                    id="exampleEmail"
-                                    placeholder="myemail@email.com"
-                                    onChange={handleEmailChange}
-                                />
-                            </FormGroup>
-                        </Col>
-                        <Col>
-                            <FormGroup>
-                                <Label for="examplePassword">Password</Label>
-                                <Input
-                                    type="password"
-                                    name="password"
-                                    id="examplePassword"
-                                    placeholder="********"
-                                    onChange={handlePWChange}
-                                />
-                            </FormGroup>
-                        </Col>
+                            <Col>
+                                {/* INSERT CONDITIONAL FAILURE MESSAGE HERE.... */}
+                                {/* <h4>{regMsg}</h4> */}
+                                {error ? <p>{error}</p> : null}
+                                {successMessage ? <p>{successMessage}</p> : null}</Col>
+                        </ModalBody>
 
-                        <Col>
-                            {/* INSERT CONDITIONAL FAILURE MESSAGE HERE.... */}
-                            {/* <h4>{regMsg}</h4> */}
-                            {error ? <p>{error}</p> : null}
-                            {successMessage ? <p>{successMessage}</p> : null}</Col>
-
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button type="submit" onClick={handleSubmit}>Submit</Button>
-                        <Button onClick={toggle}>Cancel</Button>
-                    </ModalFooter>
+                        <ModalFooter>
+                            <Button color="primary" type="submit">LOGIN</Button>
+                            <Button onClick={toggle}>Cancel</Button>
+                        </ModalFooter>
+                    </form>
                 </Modal>
 
-            </Form>
-            {/* { console.log(regMsg)}
-            { console.log(regError)}
-            { console.log(token)}
-            { console.log(tknExp)} */}
-        </div >
+            </div>
+        )
+    }
+    return (
+        <div>
+            <Button onClick={auth.logout}>LOG OUT</Button>
+            {console.log(auth.isAuthenticated)}
+        </div>
     );
 }
 
