@@ -10,8 +10,6 @@ import Search from "../components/search";
 // components
 import RankingsList from "../helpers/fetchrankings";
 import WithListLoading from "../helpers/listloading";
-// import Nation from "../components/nation";
-// import { useRankings } from "../helpers/api"
 
 export default function Home() {
 
@@ -26,8 +24,6 @@ export default function Home() {
     const url = `http://131.181.190.87:3000/rankings?country=${country}`
 
     useEffect(() => {
-        // setAppState({ loading: true });
-        // const url = `http://131.181.190.87:3000/rankings?country=australia`;
         fetch(url)
             .then((res) => res.json())
             .then((ranklists) => {

@@ -1,17 +1,8 @@
 import React from 'react';
 import { Container, Jumbotron, Col, Row, Button } from 'reactstrap';
-import { Link } from 'react-router-dom'
 import { useAuthentication } from '../helpers/authdataprovider';
 import Login from './login';
-
-let token = localStorage.getItem("token");
-
-const authHeaders = {
-    accept: "application/json",
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`
-}
-
+import FactorComp from '../helpers/api';
 
 
 export default function Factors() {
@@ -46,7 +37,9 @@ export default function Factors() {
 
     return (
         <Container>
-            <h2>FACTORS PAGE</h2>
+            
+            <FactorComp />
+
         </Container>
     )
 

@@ -16,8 +16,6 @@ import Register from "./pages/register";
 //Helpers
 import AuthenticationProvider from "./helpers/authdataprovider";
 
-
-
 const App = () => {
 
   return (

@@ -40,9 +40,8 @@ const Login = () => {
         setEmail(e.target.value);
     }
 
-    // let token = localStorage.getItem("token");
     const handleLoginSubmit = (e) => {
-        // let token = localStorage.getItem("token");
+
         //stop default behaviour
         e.preventDefault()
 
@@ -65,7 +64,6 @@ const Login = () => {
             })
             // .then(token.onLogin)
             .then(auth.login)
-            
             .catch((e) => {
                 console.log(e.message)
                 setError(e.message);
