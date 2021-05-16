@@ -1,73 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import {
     Jumbotron,
-    Container,
-    Row,
 } from "reactstrap";
 
 import Search from "../components/search";
 
 // components
-import RankingsList from "../helpers/fetchrankings";
+import RankingsList from "../components/fetchrankings";
 import WithListLoading from "../helpers/listloading";
 
 export default function Home() {
 
     const ListLoading = WithListLoading(RankingsList);
     const [country, setCountry] = useState(null);
-
+    const url = `http://131.181.190.87:3000/rankings?country=${country}`
     const [appState, setAppState] = useState({
         loading: false,
         ranklists: null,
     });
-
-    const url = `http://131.181.190.87:3000/rankings?country=${country}`
-
     useEffect(() => {
         fetch(url)
             .then((res) => res.json())
             .then((ranklists) => {
                 setAppState({ loading: false, ranklists: ranklists });
             });
-    }, [country]);
+    }, [url, country]);
+   
+    if (!country) {
+        return (
+            <main>
+                <Jumbotron>
+
+                    <h1 className="display-6">Welcome To The Global Happiness Rankings App!</h1>
+
+                    <p className="lead">Start here with a quick country search:</p>
+                    <hr className="my-4" />
+
+                    <Search onChange={setCountry} />
+
+                </Jumbotron>
+            </main>
+        )
+    }
 
     return (
-
-        // make this into a form to properly search and display??? 
-        // Use agGrid to display the resulting data?
-
         <main>
-            <Container fluid="true">
-                <Row className="justify-content-center">
+            <Jumbotron>
 
-                    <Jumbotron>
-                        <h1 className="display-6">Do a quick search for country rankings</h1>
-                        <p className="lead">Filter your search via country, year or both</p>
-                        <hr className="my-2" />
-                        <p>Make your selections here:</p>
+                <h1 className="display-6">Your Search Results</h1>
+                <hr className="mt-4" />
 
-                        {/* search bar with async typing filter */}
-                        {/* need to pass 'selectedValue' of Search to setCountry */}
+                <Search onChange={setCountry} />
 
-                        <Search onChange={setCountry} />
+                <p className="display-6">Results For {country} :</p>
 
-                        {/* <Button color="primary">Search!</Button> */}
+                <ListLoading ranklists={appState.ranklists} />
 
-                        <div className='ranklist-container'>
+            </Jumbotron>
 
-                            {/* extend to take the search parameters from the search bar (country and date) */}
-                            <h4>Results:</h4>
-
-                            {/* first way of rendering a dummy list for the home page and it works... unsure if I could extend the code to take any parameters from the search bar results. extend to take the search parameters from the search bar (country and date) */}
-                            <ListLoading ranklists={appState.ranklists} />
-
-                        </div>
-                    </Jumbotron>
-
-                </Row>
-            </Container>
         </main>
-
     )
 }
 

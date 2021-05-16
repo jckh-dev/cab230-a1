@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { AgGridReact } from "ag-grid-react";
-import { Container, Jumbotron, Col, Row, Button, Form, FormGroup, Input, Label } from 'reactstrap';
+import { Container, Jumbotron, Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import Search from "../components/search"
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -9,7 +9,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 export default function FactorComp() {
 
     const token = localStorage.getItem("token");
-    const [error, setError] = useState([null]);
+    const [error, setError] = useState(null);
     const [rowData, setRowData] = useState([]);
     const [country, setCountry] = useState(null);
     const [year, setYear] = useInput(2015);
@@ -18,15 +18,15 @@ export default function FactorComp() {
     const APIUrl = `http://131.181.190.87:3000/factors/${year}`;
 
     const columns = [
-        { headerName: "Rank", field: "rank", sortable: true },
-        { headerName: "Country", field: "country", sortable: true, filter: true },
-        { headerName: "Score", field: "score", sortable: true },
-        { headerName: "Economy", field: "economy", filter: "", sortable: true },
-        { headerName: "Family", field: "family", filter: "", sortable: true },
-        { headerName: "Health", field: "health", filter: "", sortable: true },
-        { headerName: "Freedom", field: "freedom", filter: "", sortable: true },
-        { headerName: "generosity", field: "generosity", filter: "", sortable: true },
-        { headerName: "trust", field: "trust", filter: "", sortable: true },
+        { headerName: "Rank", field: "rank", sortable: true,  flex:1 },
+        { headerName: "Country", field: "country", sortable: true,  flex:1, filter: true },
+        { headerName: "Score", field: "score", sortable: true,  flex:1 },
+        { headerName: "Economy", field: "economy", filter: "agNumberColumnFilter", sortable: true,  flex:1 },
+        { headerName: "Family", field: "family", filter: "agNumberColumnFilter", sortable: true,  flex:1 },
+        { headerName: "Health", field: "health", filter: "agNumberColumnFilter", sortable: true,  flex:1 },
+        { headerName: "Freedom", field: "freedom", filter: "agNumberColumnFilter", sortable: true,  flex:1 },
+        { headerName: "generosity", field: "generosity", filter: "agNumberColumnFilter", sortable: true,  flex:1 },
+        { headerName: "trust", field: "trust", filter: "agNumberColumnFilter", sortable: true, flex:1 },
     ]
 
     function useInput(initialValue) {
@@ -63,9 +63,6 @@ export default function FactorComp() {
 
         e.preventDefault()
 
-        // console.log("url: " + url);
-        // console.log("apiurl: " + APIUrl);
-        
         fetch(url, {
             headers: {
                 accept: "application/json",
@@ -99,9 +96,10 @@ export default function FactorComp() {
     }
 
     return (
-        <Jumbotron>
+        <Jumbotron className="customJumbo">
 
-            <h1>NATION RANKINGS BY FACTOR</h1>
+            <h1 className="display-6">InDepth Global Rankings</h1>
+            <p className="lead">Use these filters to find the full breadth of factors and indepth data that makes up the mechanics of a nations overall score.</p>
             <Form onSubmit={handleSubmit}>
                 <FormGroup>
                     <Label for="year">Select Year</Label>
@@ -120,8 +118,9 @@ export default function FactorComp() {
                 </FormGroup>
 
                 <Search onChange={setCountry} />
-                <Button type="submit" color="info" className="mb-3" onClick={checkURL}>SUBMIT SEARCH</Button>
+                <Button type="submit" color="info" className="mb-3" onClick={checkURL} block>Submit Search</Button>
             </Form>
+
             {/* grid display of nation rankings */}
             <Container
                 className="ag-theme-alpine p-0 rounded-5"
@@ -130,15 +129,14 @@ export default function FactorComp() {
                     width: "auto"
                 }}>
                 <AgGridReact
+                    defaultColDef={{ resizable: true }}
                     columnDefs={columns}
                     rowData={rowData}
                     pagination={true}
                     paginationPageSize={25}
                 />
             </Container>
-
-            {console.log(year, country, limit)}
-
+            
         </Jumbotron>
     )
 };

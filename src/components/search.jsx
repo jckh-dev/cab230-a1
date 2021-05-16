@@ -14,7 +14,7 @@ function Search(props) {
   return (
     // restart this ---- async select is not the correct usage - will query the server every button press......
     <FormGroup className="CountrySearch">
-      <Label htmlFor="countries">Choose a Country:</Label>
+      <Label htmlFor="countries"></Label>
       <Input type="select"
         onChange={(e) => {
          props.onChange(e.target.value);
@@ -22,7 +22,7 @@ function Search(props) {
         name="country"
         id="country"
       >
-        <option key="">Please Select A Country</option>
+        <option key="country">Please Select A Country</option>
         {countries.map((country) => (
           <option key={country}>{country}</option>
         ))}

@@ -17,35 +17,37 @@ import Login from "../pages/login"
 
 const NavBarLinks = () => {
 
+    // states to manage the navbar dropdown when under the md breakpoint
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
 
     return (
 
-            <Navbar color="" light expand="lg">
+        <Navbar className="my-3 p-0" light expand="md">
 
-           <NavbarBrand tag={Link} to="/"><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand>
+            <NavbarBrand tag={Link} to="/home"><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand>
 
-                <NavbarToggler onClick={toggle} />
+            <NavbarToggler onClick={toggle}/>
 
-                <Collapse isOpen={isOpen} navbar>
-                    <Nav className="ml-auto" navbar >
-                        <NavItem>
+            <Collapse isOpen={isOpen} navbar block>
+                {/* NavBar items, responsive collapse to dropdown menu @ md */}
+                <Nav className="ml-auto" navbar >
+                    <NavItem>
                         <NavLink tag={Link} to="/rankings" onClick={toggle}>Rankings</NavLink>
-                        </NavItem>
-                        <NavItem>
+                    </NavItem>
+                    <NavItem>
                         <NavLink tag={Link} to="/factors" onClick={toggle}>Factors</NavLink>
-                        </NavItem>
-                        <NavItem>
-                        <NavLink tag={Link} to="/register" onClick={toggle}>Register</NavLink>
-                        </NavItem>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink className="mr-3" tag={Link} to="/register" onClick={toggle}>Register</NavLink>
+                    </NavItem>
 
-                        <Login />
-                        
-                    </Nav>
-                </Collapse>
-            </Navbar>
+                    {/* login button component */}
+                    <Login onClick={toggle} />
+                </Nav>
+            </Collapse>
+        </Navbar>
     );
 }
 

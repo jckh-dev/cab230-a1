@@ -4,6 +4,9 @@
           #1decc5b3,
           #5b0ed6b3 100%)
 }
+.transparentbackgr {
+  background-color: rgba(173, 216, 230, 0.4) !important;
+}
 
 /* CSS RESET */
 html {
@@ -29,6 +32,12 @@ img {
 
 ol, ul {
   list-style: none;
+}
+
+
+a {
+  text-decoration: none;
+  color: black;
 }
 
 /* Gradient Theme Properties */
@@ -62,4 +71,15 @@ footer {
 
 .fail {
   color: red;
+}
+
+.jumbotron {
+  background-color: rgba(173, 216, 230, 0.4) !important;
+}
+
+.modal-content {  
+  background: linear-gradient(
+          195deg,
+          #1decc5b3,
+          #5b0ed6b3 100%);
 }

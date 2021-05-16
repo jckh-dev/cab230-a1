@@ -1,14 +1,26 @@
-import React from 'react';
-
+import {
+    Link
+}
+    from "react-router-dom";
+import {
+    Nav,
+    NavItem,
+    NavLink
+} from 'reactstrap';
 const Footer = () => {
     return (
         <footer>
-                <nav className="nav nav-pills flex-sm-row justify-content-around ">
-                    <a className="flex-sm-fill text-center nav-link" aria-current="page" href="/index.html">Home</a>
-                    <a className="flex-sm-fill text-center nav-link" href="underConstruction.html">About</a>
-                    <a className="flex-sm-fill text-center nav-link" href="underConstruction.html">Sitemap</a>
-                    <a className="flex-sm-fill text-center nav-link" href="underConstruction.html" tabindex="-1">Privacy</a>
-                </nav>
+            <Nav className="justify-content-around">
+                <NavItem>
+                    <NavLink tag={Link} to="/home" >Home</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink tag={Link} to="/home" >About</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink tag={Link} to="/home" >Privacy</NavLink>
+                </NavItem>
+            </Nav>
         </footer>
     );
 };

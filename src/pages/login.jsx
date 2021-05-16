@@ -19,13 +19,13 @@ const Login = () => {
 
     const auth = useAuthentication();
 
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [regMsg, setRegMsg] = useState("");
+    const [message, setMessage] = useState("");
     const [tknExp, setTknExp] = useState("");
-    const [successMessage, setSuccssMessage] = useState("");
 
+    const [modalColor, setModalColor] = useState("");
     // modal
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
@@ -40,10 +40,11 @@ const Login = () => {
         setEmail(e.target.value);
     }
 
+    // form logic to process a sign in request by the user
     const handleLoginSubmit = (e) => {
 
         //stop default behaviour
-        e.preventDefault()
+        e.preventDefault();
 
         fetch(url, {
             method: "POST",
@@ -53,44 +54,43 @@ const Login = () => {
             .then(res => res.json())
             .then((res) => {
                 if (res.error) {
-                    throw new Error(res.message)
+                    setModalColor("fail");
+                    throw new Error(res.message);
                 }
-                localStorage.setItem("token", res.token)
-                console.log(localStorage.getItem("token"))
+                localStorage.setItem("token", res.token);
+                // console.log(localStorage.getItem("token"));
                 setTknExp(res.expires_in);
-                setRegMsg(res.message);
-                setSuccssMessage("Success! You Are Logged In!");
+                setMessage("Success! You Are Logged In!");
+                setModalColor("success")
+                auth.login();
                 setTimeout(function () { toggle(); }, 1000);
             })
-            // .then(token.onLogin)
-            .then(auth.login)
             .catch((e) => {
-                console.log(e.message)
+                
+                console.log(e.message);
                 setError(e.message);
             })
             ;
     }
 
+    // boolean operation to decide what to display depending on if user is logged in or not
     if (!auth.isAuthenticated) {
         return (
 
             <div>
+                <Button color="info" onClick={toggle} block>Login</Button>
 
-                <Button color="info" className="ml-4" onClick={toggle}>LOGIN</Button>
+                <Modal className={modalColor} isOpen={modal} toggle={toggle} autoFocus={false}>
 
-
-                <Modal className={`${error ? 'fail' : 'success'}`} isOpen={modal} toggle={toggle} autoFocus={false}>
-
-                    <ModalHeader toggle={toggle}>SIGN IN WITH YOUR DETAILS</ModalHeader>
-                    <form onSubmit={handleLoginSubmit}>
+                    <ModalHeader toggle={toggle}>Login</ModalHeader>
+                    <Form onSubmit={handleLoginSubmit}>
                         <ModalBody>
-
                             <Col>
-                                <h2>LOGIN</h2>
+                                <h1 className="display-6">Sign In With Your Details</h1>
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <Label>Email</Label>
+                                    <Label className="lead">Email</Label>
                                     <Input
                                         type="email"
                                         name="email"
@@ -102,7 +102,7 @@ const Login = () => {
                             </Col>
                             <Col>
                                 <FormGroup>
-                                    <Label for="examplePassword">Password</Label>
+                                    <Label className="lead" for="examplePassword">Password</Label>
                                     <Input
                                         type="password"
                                         name="password"
@@ -112,27 +112,27 @@ const Login = () => {
                                     />
                                 </FormGroup>
                             </Col>
-
+                            {/* ternary decisions for displaying success or error messages upon attepting to login */}
                             <Col>
-                                {/* INSERT CONDITIONAL FAILURE MESSAGE HERE.... */}
-                                {/* <h4>{regMsg}</h4> */}
-                                {error ? <p>{error}</p> : null}
-                                {successMessage ? <p>{successMessage}</p> : null}</Col>
+                                {error ? (<p className="lead">There Was An Error Processing Your Request</p>, <p className="lead">{error}</p>) : null}
+                                {message ? <p className="lead">{message}</p> : null}
+                            </Col>
                         </ModalBody>
 
+                        {/* button selectors for form and modal toggling */}
                         <ModalFooter>
-                            <Button color="primary" type="submit">LOGIN</Button>
-                            <Button onClick={toggle}>Cancel</Button>
+                            <Button color="info" type="submit">Login</Button>
+                            <Button color="primary" onClick={toggle}>Cancel</Button>
                         </ModalFooter>
-                    </form>
+                    </Form>
                 </Modal>
-
             </div>
         )
     }
+    // boolean return to display in place of the login button if logged in 
     return (
         <div>
-            <Button onClick={auth.logout}>LOG OUT</Button>
+            <Button color="light" onClick={auth.logout} block>Logout</Button>
             {console.log(auth.isAuthenticated)}
         </div>
     );

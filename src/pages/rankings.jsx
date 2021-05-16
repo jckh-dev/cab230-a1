@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Jumbotron, Container } from "reactstrap";
+import { Jumbotron } from "reactstrap";
 import { AgGridReact } from "ag-grid-react";
 
 // ag-grid CSS imports
@@ -11,51 +11,50 @@ export default function Rankings() {
     const [rowData, setRowData] = useState([]);
 
     const columns = [
-        { headerName: "Rank", field: "rank", sortable: true },
-        { headerName: "Country", field: "country", sortable: true, filter: true },
-        { headerName: "Score", field: "score", sortable: true },
-        { headerName: "Year", field: "year", filter: "agNumberColumnFilter" }
+        { headerName: "Rank", field: "rank", sortable: true, flex: 0.2 },
+        { headerName: "Country", field: "country", sortable: true, filter: true, flex:1},
+        { headerName: "Score", field: "score", sortable: true, flex: 0.5 },
+        { headerName: "Year", field: "year", filter: "agNumberColumnFilter", flex: 0.5 }
     ]
 
     useEffect(() => {
         fetch(url)
-        .then(res => res.json())
-        .then(nations => 
-            nations.map(nation => {
-                return {
-                    rank: nation.rank,
-                    country: nation.country,
-                    score: nation.score,
-                    year: nation.year
-                };
-            })
-        )
-        .then(nations => setRowData(nations));
+            .then(res => res.json())
+            .then(nations =>
+                nations.map(nation => {
+                    return {
+                        rank: nation.rank,
+                        country: nation.country,
+                        score: nation.score,
+                        year: nation.year
+                    };
+                })
+            )
+            .then(nations => setRowData(nations));
     }, []);
 
-        return (
+    return (
+        <Jumbotron className="customJumbo">
 
-            <Container>
-                <Jumbotron>
+            <h1 className="display-6 pb-2 pl-2">Global Rankings</h1>
 
-                    <h1>NATION RANKINGS</h1>
-                    
-                    {/* grid display of nation rankings */}
-                    <div
-                        className="ag-theme-alpine"
-                        style={{
-                            height: "100vh",
-                            width: "auto"
-                        }}>
-                        <AgGridReact
-                            columnDefs={columns}
-                            rowData={rowData}
-                            pagination={true}
-                            paginationPageSize={25}
-                        />
-                    </div>
+            <p className="lead pl-2">Use the filtering options to drill down to the data you want.</p>
 
-                </Jumbotron>
-            </Container>
-        )
-    }
+            {/* grid display of nation rankings */}
+            <div
+                className="ag-theme-alpine"
+                style={{
+                    height: "100vh",
+                }}>
+                <AgGridReact
+                    defaultColDef={{ resizable: true }}
+                    columnDefs={columns}
+                    rowData={rowData}
+                    pagination={true}
+                    paginationPageSize={25}
+                />
+            </div>
+
+        </Jumbotron>
+    )
+}
