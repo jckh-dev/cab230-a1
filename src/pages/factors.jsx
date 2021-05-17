@@ -4,8 +4,8 @@ import {
     Link
 }
     from "react-router-dom";
-import { useAuthentication } from '../helpers/authdataprovider';
-import Login from './login';
+import { useAuthentication } from '../helpers/authProvider';
+import Login from '../components/login';
 import FactorComp from '../helpers/api';
 
 

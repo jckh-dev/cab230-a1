@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Card, CardTitle, CardText, Row, Col, CardHeader } from 'reactstrap';
+import { Card, CardTitle, CardText, Row, Col, CardHeader } from 'reactstrap';
 
 const RankingsList = (props) => {
 

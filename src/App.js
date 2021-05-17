@@ -14,7 +14,7 @@ import Rankings from "./pages/rankings";
 import Register from "./pages/register";
 
 //Helpers
-import AuthenticationProvider from "./helpers/authdataprovider";
+import AuthenticationProvider from "./helpers/authProvider";
 
 const App = () => {
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuthentication } from "../helpers/authdataprovider";
+import { useAuthentication } from "../helpers/authProvider";
 // import jwt from "jsonwebtoken";
 import {
     Button,
@@ -17,6 +17,8 @@ import {
 
 const Login = () => {
 
+    const url = `http://131.181.190.87:3000/user/login`;
+
     const auth = useAuthentication();
 
     const [error, setError] = useState(null);
@@ -24,14 +26,14 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const [tknExp, setTknExp] = useState("");
-
     const [modalColor, setModalColor] = useState("");
-    // modal
+    const [modalMsg, setModalMessage] = useState(null);
+
+    // handle modal toggle behaviour
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
-    const url = `http://131.181.190.87:3000/user/login`;
-
+    // handle form changes and submission
     const handlePWChange = (e) => {
         setPassword(e.target.value);
     }
@@ -45,7 +47,7 @@ const Login = () => {
 
         //stop default behaviour
         e.preventDefault();
-
+        // fetch data from API and process. Contains error handling, restricts the modal from closing on failed attempt
         fetch(url, {
             method: "POST",
             body: JSON.stringify({ email: email, password: password }),
@@ -55,18 +57,18 @@ const Login = () => {
             .then((res) => {
                 if (res.error) {
                     setModalColor("fail");
+                    setModalMessage(res.message);
                     throw new Error(res.message);
                 }
                 localStorage.setItem("token", res.token);
-                // console.log(localStorage.getItem("token"));
                 setTknExp(res.expires_in);
-                setMessage("Success! You Are Logged In!");
-                setModalColor("success")
-                auth.login();
-                setTimeout(function () { toggle(); }, 1000);
+                // reset modal in case an error was caught
+                setModalColor();
+                setModalMessage();
             })
+            .then(auth.login)
+            .then(toggle)
             .catch((e) => {
-                
                 console.log(e.message);
                 setError(e.message);
             })
@@ -78,12 +80,15 @@ const Login = () => {
         return (
 
             <div>
+
                 <Button color="info" onClick={toggle} block>Login</Button>
 
-                <Modal className={modalColor} isOpen={modal} toggle={toggle} autoFocus={false}>
+                <Modal className={modalColor} isOpen={modal} toggle={toggle} data-backdrop="static" autoFocus={false}>
 
-                    <ModalHeader toggle={toggle}>Login</ModalHeader>
                     <Form onSubmit={handleLoginSubmit}>
+
+                        <ModalHeader toggle={toggle}>Login</ModalHeader>
+
                         <ModalBody>
                             <Col>
                                 <h1 className="display-6">Sign In With Your Details</h1>
@@ -114,26 +119,26 @@ const Login = () => {
                             </Col>
                             {/* ternary decisions for displaying success or error messages upon attepting to login */}
                             <Col>
-                                {error ? (<p className="lead">There Was An Error Processing Your Request</p>, <p className="lead">{error}</p>) : null}
-                                {message ? <p className="lead">{message}</p> : null}
+                                <p className="lead">{modalMsg}</p>
                             </Col>
                         </ModalBody>
 
                         {/* button selectors for form and modal toggling */}
                         <ModalFooter>
-                            <Button color="info" type="submit">Login</Button>
+                            <Button color="info" type="submit" >Login</Button>
                             <Button color="primary" onClick={toggle}>Cancel</Button>
                         </ModalFooter>
                     </Form>
                 </Modal>
+
             </div>
         )
     }
+
     // boolean return to display in place of the login button if logged in 
     return (
         <div>
-            <Button color="light" onClick={auth.logout} block>Logout</Button>
-            {console.log(auth.isAuthenticated)}
+            <Button color="light" onClick={auth.logout}>Logout</Button>
         </div>
     );
 }

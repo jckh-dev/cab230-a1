@@ -1,5 +1,5 @@
 import {
-    Link
+    Link, Redirect
 }
     from "react-router-dom";
 import {
@@ -12,6 +12,7 @@ const Footer = () => {
         <footer>
             <Nav className="justify-content-around">
                 <NavItem>
+                    <Redirect from="/" to ="/home" />
                     <NavLink tag={Link} to="/home" >Home</NavLink>
                 </NavItem>
                 <NavItem>

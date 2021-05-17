@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuthentication } from "../helpers/authdataprovider";
+import { useAuthentication } from "../helpers/authProvider";
 import { Link, Redirect } from "react-router-dom";
 import {
     Col,
@@ -58,19 +58,25 @@ const Register = () => {
             .then((res) => {
                 (console.log(res.error + "-"));
                 (console.log(res.message + "--"));
+                // if (res.error) {
+                //     setModalColor("fail");
+                //     throw new Error(res.message);
+                // }
                 setError(res.error);
                 setMessage(res.message);
                 // conditional statement here to manage error msg to display when modal pops up
                 res.error ? setModalMsg("Failed") : setModalMsg("Been Successful");
                 res.error ? setModalColor("fail") : setModalColor("success");
-                res.message === `User created` ? handleLogin(e) : <Redirect to="/" />;
+                if (res.message === `User created`){
+                    handleLogin(e)
+                };
             })
             .catch((e) => {
                 setError(e);
                 setMessage(e.message);
                 console.log(e);
             })
-            ;
+            
     }
 
     // Function to Log user on if registration is successful if they choose to go back home
@@ -90,13 +96,10 @@ const Register = () => {
                 setLoginMsg(res.message);
             })
             .then(auth.login)
-            .then(toggle())
             .catch((e) => {
                 setError(e);
                 setMessage(e.message);
-                console.log(e);
             })
-            .finally(<Redirect to="/home" />);
     }
 
     return (
@@ -148,7 +151,7 @@ const Register = () => {
                             <p className="lead">{message}</p>
                         </Col>
                         <Col>
-                            <Button className="m-1" color="info" onClick={toggle} tag={Link} to="/register">Submit New Request</Button>
+                            <Button className="m-1" color="info" onClick={toggle} >Submit New Request</Button>
                             <Button className="m-1" color="primary" tag={Link} to="/home">Back Home</Button>
                         </Col>
 

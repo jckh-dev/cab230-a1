@@ -13,13 +13,12 @@ import {
     NavLink,
 } from 'reactstrap';
 
-import Login from "../pages/login"
+import Login from "./login"
 
 const NavBarLinks = () => {
 
     // states to manage the navbar dropdown when under the md breakpoint
     const [isOpen, setIsOpen] = useState(false);
-
     const toggle = () => setIsOpen(!isOpen);
 
     return (
@@ -30,9 +29,9 @@ const NavBarLinks = () => {
 
             <NavbarToggler onClick={toggle}/>
 
-            <Collapse isOpen={isOpen} navbar block>
+            <Collapse isOpen={isOpen} navbar>
                 {/* NavBar items, responsive collapse to dropdown menu @ md */}
-                <Nav className="ml-auto" navbar >
+                <Nav className="ml-auto" navbar>
                     <NavItem>
                         <NavLink tag={Link} to="/rankings" onClick={toggle}>Rankings</NavLink>
                     </NavItem>
@@ -44,7 +43,7 @@ const NavBarLinks = () => {
                     </NavItem>
 
                     {/* login button component */}
-                    <Login onClick={toggle} />
+                         <Login />                         
                 </Nav>
             </Collapse>
         </Navbar>
