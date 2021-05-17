@@ -9,7 +9,7 @@ const AuthenticationProvider = props => {
 
   const auth = useMemo(() => ({
     isAuthenticated,
-    login: isAuthenticated => setIsAuthenticated(true),
+    login: isAuthenticated => setIsAuthenticated(!isAuthenticated),
     logout: () => setIsAuthenticated(false),
   }), [isAuthenticated]);
 
