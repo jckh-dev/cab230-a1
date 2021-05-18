@@ -5,6 +5,7 @@ function Search(props) {
 
   const [countries, setCountries] = useState([]);
 
+  // fetches data from API and stores it in the countries state
   useEffect(() => {
     fetch(`http://131.181.190.87:3000/countries`)
       .then((res) => res.json())
@@ -12,7 +13,8 @@ function Search(props) {
   }, []);
 
   return (
-    // restart this ---- async select is not the correct usage - will query the server every button press......
+    
+    // country drop down box: takes the data in the countries state and maps it to a list of countries to display in the dropdown box
     <FormGroup className="CountrySearch">
       <Label htmlFor="countries"></Label>
       <Input type="select"

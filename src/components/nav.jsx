@@ -27,6 +27,7 @@ const NavBarLinks = () => {
 
             <NavbarBrand tag={Link} to="/home"><i className="fas fa-globe-americas pr-3"></i>Global Happiness Rankings</NavbarBrand>
 
+            {/* responsive toggle button */}
             <NavbarToggler onClick={toggle}/>
 
             <Collapse isOpen={isOpen} navbar>

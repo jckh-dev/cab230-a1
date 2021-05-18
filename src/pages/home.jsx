@@ -11,6 +11,7 @@ import WithListLoading from "../helpers/listloading";
 
 export default function Home() {
 
+    // fetch request for the countries data end point. Needs to be refactored to properly remove some of the legacy code associated with the inital async implementation. This block of code should be much simpler than it is currently
     const ListLoading = WithListLoading(RankingsList);
     const [country, setCountry] = useState(null);
     const url = `http://131.181.190.87:3000/rankings?country=${country}`
@@ -18,6 +19,7 @@ export default function Home() {
         loading: false,
         ranklists: null,
     });
+    
     useEffect(() => {
         fetch(url)
             .then((res) => res.json())
@@ -26,6 +28,7 @@ export default function Home() {
             });
     }, [url, country]);
    
+    // if no country has been selected, display this landing page and welcome msg
     if (!country) {
         return (
             <main>
@@ -43,6 +46,7 @@ export default function Home() {
         )
     }
 
+    // after a country has been selected, display this results page
     return (
         <main>
             <Jumbotron>

@@ -20,8 +20,9 @@ const App = () => {
 
   return (
 
-
+    // router initialisation around entire tree structure
     <Router>
+      {/* authentication provider wrapper for the context state functionality */}
       <AuthenticationProvider>
         <div className="App">
           <Container className="header_cnt border-bottom mb-3">
@@ -30,7 +31,7 @@ const App = () => {
 
           <Container fluid className="content_cnt">
             <Container>
-
+              {/* routing paths */}
               <Switch>
                 <Route exact path="/home" component={Home} />
                 <Route path="/rankings">

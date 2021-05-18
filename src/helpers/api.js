@@ -17,6 +17,7 @@ export default function FactorComp() {
     const [url, setUrl] = useState(null);
     const APIUrl = `http://131.181.190.87:3000/factors/${year}`;
 
+    // column header list and associated customisations for filtering/responsiveness/sortability etc
     const columns = [
         { headerName: "Rank", field: "rank", sortable: true,  flex:1 },
         { headerName: "Country", field: "country", sortable: true,  flex:1, filter: true },
@@ -29,6 +30,7 @@ export default function FactorComp() {
         { headerName: "trust", field: "trust", filter: "agNumberColumnFilter", sortable: true, flex:1 },
     ]
 
+    // experiment using a destructured function to handle various different types of state changes
     function useInput(initialValue) {
         const [value, setValue] = useState(initialValue);
 
@@ -38,6 +40,8 @@ export default function FactorComp() {
         return [value, handleChange];
     }
 
+
+    // function looks at the users search query and figures out the applicable api url statement for the request to send.
     function checkURL() {
 
         if (limit === country) {
@@ -59,10 +63,12 @@ export default function FactorComp() {
         
     }
 
+    // handles search form submission
     function handleSubmit(e) {
 
         e.preventDefault()
 
+        // fetching data and mapping the response 
         fetch(url, {
             headers: {
                 accept: "application/json",
@@ -87,6 +93,7 @@ export default function FactorComp() {
                     };
                 })
             )
+            // sets the mapped values into the row data for the table
             .then(nations => setRowData(nations))
             .catch((e) => {
                 setError(e);
@@ -96,10 +103,11 @@ export default function FactorComp() {
     }
 
     return (
-        <Jumbotron className="customJumbo">
-
+        <Jumbotron>
+            
             <h1 className="display-6">InDepth Global Rankings</h1>
             <p className="lead">Use these filters to find the full breadth of factors and indepth data that makes up the mechanics of a nations overall score.</p>
+            {/* search form for Factors */}
             <Form onSubmit={handleSubmit}>
                 <FormGroup>
                     <Label for="year">Select Year</Label>
@@ -114,7 +122,7 @@ export default function FactorComp() {
                 </FormGroup>
                 <FormGroup>
                     <Label for="searchLimit">How many records would you like to return?</Label>
-                    <Input type="text" name="searchLimit" id="searchLimit" placeholder="......" value={limit} onChange={setLimit} />
+                    <Input type="text" name="searchLimit" id="searchLimit" placeholder="..." value={limit} onChange={setLimit} />
                 </FormGroup>
 
                 <Search onChange={setCountry} />

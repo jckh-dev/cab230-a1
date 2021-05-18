@@ -24,7 +24,6 @@ const Login = () => {
     const [error, setError] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
     const [tknExp, setTknExp] = useState("");
     const [modalColor, setModalColor] = useState("");
     const [modalMsg, setModalMessage] = useState(null);
@@ -62,12 +61,14 @@ const Login = () => {
                 }
                 localStorage.setItem("token", res.token);
                 setTknExp(res.expires_in);
+                // process login when successful
+                auth.login();
+                // togggle the modal box off
+                toggle();
                 // reset modal in case an error was caught
                 setModalColor();
                 setModalMessage();
             })
-            .then(auth.login)
-            .then(toggle)
             .catch((e) => {
                 console.log(e.message);
                 setError(e.message);
@@ -80,9 +81,10 @@ const Login = () => {
         return (
 
             <div>
-
+                {/* Login button component */}
                 <Button color="info" onClick={toggle} block>Login</Button>
 
+                {/* modal popup for login details */}
                 <Modal className={modalColor} isOpen={modal} toggle={toggle} data-backdrop="static" autoFocus={false}>
 
                     <Form onSubmit={handleLoginSubmit}>
@@ -117,7 +119,7 @@ const Login = () => {
                                     />
                                 </FormGroup>
                             </Col>
-                            {/* ternary decisions for displaying success or error messages upon attepting to login */}
+                            {/* message to display upon submitting request (success/ fail)*/}
                             <Col>
                                 <p className="lead">{modalMsg}</p>
                             </Col>

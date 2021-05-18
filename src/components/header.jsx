@@ -23,8 +23,7 @@ const Header = () => {
         <header>
                 <NavBarLinks />
                 {/* shows a message on the home screen when the user logs in successfully */}
-                {auth.isAuthenticated ? SignedInAlert() : null}
-                { console.log(auth.isAuthenticated) }
+                {auth.isAuthenticated ? <SignedInAlert /> : null }
         </header>
     );
 };

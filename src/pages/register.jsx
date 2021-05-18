@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuthentication } from "../helpers/authProvider";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
     Col,
     FormGroup,
@@ -10,7 +10,6 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter,
     Form,
     Jumbotron
 } from 'reactstrap';
@@ -28,6 +27,8 @@ const Register = () => {
     const [tknExp, setTknExp] = useState("");
     const [modalMsg, setModalMsg] = useState("");
     const [modalColor, setModalColor] = useState("");
+   
+    // modal toggle 
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
@@ -56,25 +57,19 @@ const Register = () => {
         })
             .then(res => res.json())
             .then((res) => {
-                (console.log(res.error + "-"));
-                (console.log(res.message + "--"));
-                // if (res.error) {
-                //     setModalColor("fail");
-                //     throw new Error(res.message);
-                // }
                 setError(res.error);
                 setMessage(res.message);
                 // conditional statement here to manage error msg to display when modal pops up
                 res.error ? setModalMsg("Failed") : setModalMsg("Been Successful");
                 res.error ? setModalColor("fail") : setModalColor("success");
+                // if a new user is created, pass on login details and run handleLogin
                 if (res.message === `User created`){
                     handleLogin(e)
                 };
             })
             .catch((e) => {
-                setError(e);
+                setError(e.error);
                 setMessage(e.message);
-                console.log(e);
             })
             
     }
@@ -94,8 +89,8 @@ const Register = () => {
                 localStorage.setItem("token", res.token);
                 setTknExp(res.expires_in);
                 setLoginMsg(res.message);
+                auth.login();
             })
-            .then(auth.login)
             .catch((e) => {
                 setError(e);
                 setMessage(e.message);
@@ -103,13 +98,14 @@ const Register = () => {
     }
 
     return (
-        <Jumbotron className="customJumbo">
+        <Jumbotron>
             <Col>
                 <h1 className="display-6">Please Register Your Details</h1>
 
                 <p className="lead">You will need to register in order to access the "Factors" page</p>
                 <hr className="my-3" />
             </Col>
+            {/* registration form details */}
             <Form onSubmit={handleSubmit}>
                 <Col>
                     <FormGroup>
@@ -156,9 +152,7 @@ const Register = () => {
                         </Col>
 
                     </ModalBody>
-                    <ModalFooter>
-
-                    </ModalFooter>
+                    
                 </Modal>
             </Form>
         </Jumbotron>

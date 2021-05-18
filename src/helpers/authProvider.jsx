@@ -1,11 +1,12 @@
 import React, { useState, useContext, useMemo, createContext } from "react";
 
+// implements a context hook to store user logged in state
 const noop = () => {};
 
 const AuthContext = createContext({ isAuthenticated: false, login: noop, logout: noop });
 
 const AuthenticationProvider = props => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState("");
 
   const auth = useMemo(() => ({
     isAuthenticated,

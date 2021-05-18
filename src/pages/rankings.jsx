@@ -9,7 +9,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 export default function Rankings() {
     const url = "http://131.181.190.87:3000/rankings"
     const [rowData, setRowData] = useState([]);
-
+    // column headers for ag-grid table
     const columns = [
         { headerName: "Rank", field: "rank", sortable: true, flex: 0.2 },
         { headerName: "Country", field: "country", sortable: true, filter: true, flex:1},
@@ -17,6 +17,7 @@ export default function Rankings() {
         { headerName: "Year", field: "year", filter: "agNumberColumnFilter", flex: 0.5 }
     ]
 
+    // fetch request to rankings data endpoint
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
@@ -30,11 +31,12 @@ export default function Rankings() {
                     };
                 })
             )
+            // set data from 'nations' into the rowData for the table
             .then(nations => setRowData(nations));
     }, []);
 
     return (
-        <Jumbotron className="customJumbo">
+        <Jumbotron>
 
             <h1 className="display-6 pb-2 pl-2">Global Rankings</h1>
 

@@ -10,6 +10,7 @@ import {
 const Footer = () => {
     return (
         <footer>
+            {/* footer elements to display */}
             <Nav className="justify-content-around">
                 <NavItem>
                     <Redirect from="/" to ="/home" />
